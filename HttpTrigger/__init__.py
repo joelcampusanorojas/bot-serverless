@@ -1,7 +1,7 @@
 import logging
-
 import azure.functions as func
-
+import requests
+from .luis import luis
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -25,4 +25,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
              status_code=200
         )
     '''
+    #print(luis(text))
+    logging.info(luis(text))
+
     return func.HttpResponse(f"Hello, your said: {text}.")
