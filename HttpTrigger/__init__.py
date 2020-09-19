@@ -1,11 +1,28 @@
 import logging
 import azure.functions as func
+
 import requests
+
 from .luis import luis
+
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
+
+#from azure.identity import DefaultAzureCredential
+#from azure.keyvault.secrets import SecretClient
+keyVaultName = "bot-serverless-vault"
+KVUri = f"https://{keyVaultName}.vault.azure.net"
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
-
+    '''
+    credential = DefaultAzureCredential()
+    client = SecretClient(vault_url=KVUri, credential=credential) 
+    secretName = "luis-app-id"
+    print(client)
+    retrieved_secret = client.get_secret(secretName)
+    logging.info(f"Retrieving your secret from {retrieved_secret}.")
+    '''
     req_body = req.get_json()
     text = req_body.get('text').lower()
     '''
