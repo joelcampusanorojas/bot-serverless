@@ -13,7 +13,7 @@ The motivation for this project is the generate the bot with all services with a
 ## Architecture
 This is a conversational bot flow that functions search the information in the CVS File.
 
-![Architecture](https://https://github.com/joelcampusanorojas/bot-serverless/images/architecture.png)
+![Architecture](https://raw.githubusercontent.com/joelcampusanorojas/bot-serverless/master/images/architecture.png)
 
   - The user connect to the chatbot for any channel, for example Skype, MS Teams or Slack.
   - The message sent a request to Bot Framework and resolve with Azure Function.
