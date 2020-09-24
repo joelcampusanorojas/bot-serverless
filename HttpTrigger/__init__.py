@@ -12,5 +12,5 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     luis_response = luis(text)
     #logging.info(luis_response)
     
-    return func.HttpResponse(f"Hello, your said: {text}. The intent in LUIS is: {luis_response} .")
+    return func.HttpResponse(f"Hello, your said: {text}. The intent in LUIS is: {luis_response}.")
 
