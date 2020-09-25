@@ -11,6 +11,7 @@ from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
 import json
+import unidecode
 
 keyVaultName = "bot-serverless-vault"
 KVUri = f"https://{keyVaultName}.vault.azure.net"
@@ -35,6 +36,7 @@ def luis(text):
 
         # The utterance you want to use.
         utterance = text
+        utterance = unidecode.unidecode(utterance)
         ##########
 
         # The headers to use in this REST call.
