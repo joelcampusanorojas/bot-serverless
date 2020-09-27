@@ -6,13 +6,18 @@ import json
 import requests
 import logging
 
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
+keyVaultName = "bot-serverless-vault"
+KVUri = f"https://{keyVaultName}.vault.azure.net"
+
 def get_search(question):
     try:
 
-        host = 'bot-serverless-search.search.windows.net'
-        endpoint_key = '7C9CB5854474711F77CF30D385BEF4BC'
-        api_version = '2020-06-30'
-        path = '/indexes/cosmosdb-index/'
+        host = get_vault('search-host')
+        endpoint_key = get_vault('search-key')
+        api_version = get_vault('search-api-version')
+        index = get_vault('search-index')
 
         question = question.lower()
         
@@ -34,7 +39,7 @@ def get_search(question):
 
         payload = ''
         params = urllib.parse.urlencode(content)
-        url = path + 'docs?' + params
+        url = index + 'docs?' + params
 
         conn = http.client.HTTPSConnection(host)
         conn.request("GET", url, payload, headers)
@@ -52,10 +57,17 @@ def get_search(question):
                 #score = value["@search.score"]
                 #question = value["questions"]
                 answer = value["answer"]
-                
+
         answer = str(answer)
         return (answer)
 
     except Exception as e:
         # Display the error string.
         print(f'{e}')
+
+
+def get_vault(secretName):
+    credential = DefaultAzureCredential()
+    client = SecretClient(vault_url=KVUri, credential=credential) 
+    retrieved_secret = client.get_secret(secretName)
+    return(retrieved_secret.value)

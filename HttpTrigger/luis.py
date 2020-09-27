@@ -1,8 +1,10 @@
+
 ########### Python 3.6 #############
 
 #
 # This quickstart shows how to predict the intent of an utterance by using the LUIS REST APIs.
 #
+
 
 import requests
 import logging
