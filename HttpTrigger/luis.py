@@ -17,7 +17,7 @@ keyVaultName = "bot-serverless-vault"
 KVUri = f"https://{keyVaultName}.vault.azure.net"
 
 
-def luis(text):
+def get_luis(text):
     try:
         ##########
         # Values to modify.
@@ -71,11 +71,11 @@ def luis(text):
         # If the score is minor that tolerance, return for default None 
         if(float(tolerance) >= float(score)):
             top_prediction = 'None'
-            logging.info(f'*** ++++ ')
 
         # Display the results on the console.
         # print(response.json())
         # return(response.json())
+        top_prediction = top_prediction.lower()
         return(top_prediction)
 
     except Exception as e:
