@@ -17,7 +17,7 @@ def get_search(question):
         question = question.lower()
         
         answer = ''
-        score = 0
+        #score = 0
 
         headers = {
             'api-key': endpoint_key,
@@ -41,7 +41,7 @@ def get_search(question):
         response = conn.getresponse()
         
         
-
+        answer = ''
         if(response.status == 200):
             result_json = response.read()
             result_json = json.loads(result_json)
@@ -49,13 +49,12 @@ def get_search(question):
             
             if(len(value) > 0):
                 value = value[0]
-                score = value["@search.score"]
-                question = value["questions"]
-                answer = value["answer"]    
-
+                #score = value["@search.score"]
+                #question = value["questions"]
+                answer = value["answer"]
+                
         answer = str(answer)
-        logging.info(f'*** {str(answer)}')
-        return {answer}
+        return (answer)
 
     except Exception as e:
         # Display the error string.
